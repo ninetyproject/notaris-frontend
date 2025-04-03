@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Berkas</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <h1>Tambah Pelayanan Baru</h1>
+    <form id="formTambahBerkas">
+        <label for="nikPemohon">Kode (NIK Pemohon):</label>
+        <input type="text" id="nikPemohon" placeholder="Masukkan NIK Pemohon (16 digit)" required minlength="16" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+        <label for="additionalExplanation">Penjelasan Tambahan:</label>
+        <textarea id="additionalExplanation" placeholder="Masukkan Penjelasan Tambahan (Maks 150 karakter)" maxlength="150"></textarea>
+
+        <label for="namaPemohon">Pemohon Atas Nama:</label>
+        <input type="text" id="namaPemohon" placeholder="Masukkan Nama Pemohon" required>
+
+        <label for="tanggalPermohonan">Tanggal Permohonan:</label>
+        <input type="date" id="tanggalPermohonan" required>
+
+        <button type="button" id="submitBerkasBtn">Tambah Berkas</button>
+        <button type="button" id="cancelBtn" onclick="window.location.href='../notaris.html'">Cancel</button>
+    </form>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p id="popup-message"></p>
+            <button id="closePopup">OK</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

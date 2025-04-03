@@ -1,113 +1,74 @@
-* {
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url('pictures/background.jpg'); /* Ambil gambar dari folder pictures */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #f4f4f4; /* Warna cadangan jika gambar tidak ditemukan */
-    flex-direction: column;
 }
 
 .container {
     text-align: center;
-    background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 90%;
 }
 
 button {
     padding: 10px 20px;
-    margin: 10px 0;
-    border: none;
-    background: #007BFF;
-    color: white;
-    font-size: 16px;
+    margin: 10px;
     cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
-    width: 100%;
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #0056b3;
 }
 
-.notaris-link, .back-link {
-    display: block;
-    margin-top: 10px;
-    color: #007BFF;
-    text-decoration: none;
-}
-
-.notaris-link:hover, .back-link:hover {
-    text-decoration: underline;
-}
-
-input {
-    display: block;
-    width: calc(100% - 20px);
+input, textarea {
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 300px;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-/* Login Form Styles */
-.login-container {
-    text-align: center;
+input[type="date"] {
+    width: 50%;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
     background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 90%;
-}
-
-#loginForm input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
     border-radius: 5px;
+    text-align: center;
+    display: none;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.popup-content.active {
+    animation: popupAnim 0.3s ease-out;
 }
 
-button:hover {
-    background: #0056b3;
-}
-
-p {
-    margin-top: 10px;
-    color: red;
-}
-
-/* Berkas styles */
-.berkas {
-    text-align: left;
-    background: #e3f2fd;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+@keyframes popupAnim {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

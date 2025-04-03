@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Notaris</title>
+    <title>Notaris - Dashboard</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+    <h1>Dashboard Notaris</h1>
+    <button id="tambahBerkasBtn" onclick="window.location.href='formnewberkas/newberkas.html'">
+        Tambah Pelayanan Baru
+    </button>
+    <div id="berkasList"></div>
 
-    <div class="container">
-        <h2>Dashboard Notaris</h2>
-        <p>Selamat datang di Dashboard Notaris.</p>
-        <button>Kelola Berkas</button>
-        <button>Tambah Berkas</button>
+    <div id="daftar-berkas">
+        <!-- Daftar berkas akan muncul di sini -->
     </div>
-
+    
+    <script src="../script.js"></script>
 </body>
 </html>
-<!-- Compare this snippet from pages/notaris.html: -->

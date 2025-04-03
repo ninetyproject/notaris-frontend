@@ -1,54 +1,66 @@
-// Function to handle login
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    // Fungsi untuk login
+    function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        let loginPopup = document.getElementById("loginPopup");
+        let loginPopupMessage = document.getElementById("loginPopupMessage");
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (username === "admin" && password === "Notaris@1992") {
-        window.location.href = "pages/notaris-dashboard.html"; // Redirect to notaris dashboard
-    } else {
-        document.getElementById("errorMessage").style.display = "block"; // Show error message
-    }
-});
-
-// Ensure only numeric input for NIK field
-document.getElementById("nikInput").addEventListener("input", function () {
-    this.value = this.value.replace(/\D/g, ""); // Hapus semua karakter selain angka
-});
-
-// Function to search berkas
-function cariBerkas() {
-    let nikInput = document.getElementById("nikInput");
-    nikInput.value = nikInput.value.replace(/\D/g, ""); // Hapus semua karakter selain angka
-    let nik = nikInput.value; // Ambil nilai input NIK setelah difilter
-    let hasilDiv = document.getElementById("hasilPencarian");
-
-    // Sample data (replace with database logic later)
-    let dataBerkas = {
-        "5108056706720002": {
-            status: "Pelayanan Telah Diproses",
-            tambahan: "Proses BPHTB"
-        },
-        "5108056706720003": {
-            status: "Pelayanan Telah Selesai",
-            tambahan: ""
+        if (username === "admin" && password === "Notaris@1992") {
+            window.location.href = "pages/notaris.html"; // Redirect ke halaman notaris
+        } else {
+            loginPopupMessage.innerText = "Username atau password salah!";
+            loginPopup.style.display = "block"; // Tampilkan popup error
+            setTimeout(function () {
+                document.querySelector(".popup-content").classList.add("active"); // Animasi popup
+            }, 10);
         }
-    };
-
-    // Check if NIK exists in data
-    if (dataBerkas[nik]) {
-        let hasil = `
-            <div class="berkas">
-                <p><strong>Kode:</strong> ${nik}</p>
-                <p><strong>Status:</strong> ${dataBerkas[nik].status}</p>
-                <p>${dataBerkas[nik].tambahan}</p>
-                <p>Informasi Selengkapnya, Hubungi Kami melalui: 
-                   <a href="https://wa.me/6281234567890">WhatsApp</a></p>
-            </div>
-        `;
-        hasilDiv.innerHTML = hasil;
-    } else {
-        hasilDiv.innerHTML = `<p style="color: red;">Berkas tidak ditemukan.</p>`;
     }
-}
+
+    // Menutup popup saat tombol OK diklik
+    document.getElementById("closeLoginPopup").addEventListener("click", function () {
+        document.getElementById("loginPopup").style.display = "none"; // Menyembunyikan popup
+        document.querySelector(".popup-content").classList.remove("active"); // Menghapus efek animasi
+    });
+
+    // Menangani pencarian status berkas
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Menghindari refresh halaman
+        const nikPemohon = document.getElementById("nikPemohon").value;
+        if (nikPemohon.length === 16) {
+            // Cek status berkas di sini
+            document.getElementById("statusOutput").innerText = `Mencari status berkas dengan NIK: ${nikPemohon}`;
+        } else {
+            // Menampilkan pesan di dalam popup jika NIK tidak valid
+            document.getElementById("popup-message").innerText = "NIK harus terdiri dari 16 digit!";
+            document.getElementById("popup").style.display = "block";
+            document.querySelector(".popup-content").classList.add("active"); // Animasi popup
+        }
+    });
+
+    // Menambahkan berkas
+    document.getElementById("submitBerkasBtn").addEventListener("click", function () {
+        const nikPemohon = document.getElementById("nikPemohon").value;
+        const additionalExplanation = document.getElementById("additionalExplanation").value;
+        const namaPemohon = document.getElementById("namaPemohon").value;
+        const tanggalPermohonan = document.getElementById("tanggalPermohonan").value;
+
+        if (nikPemohon.length === 16 && namaPemohon && tanggalPermohonan) {
+            // Simpan data berkas dan beri konfirmasi
+            document.getElementById("popup-message").innerText = "Berkas berhasil ditambahkan!";
+            document.getElementById("popup").style.display = "block";
+            document.querySelector(".popup-content").classList.add("active"); // Animasi popup
+        } else {
+            // Menampilkan pesan jika form tidak valid
+            document.getElementById("popup-message").innerText = "Semua kolom harus diisi dengan benar!";
+            document.getElementById("popup").style.display = "block";
+            document.querySelector(".popup-content").classList.add("active"); // Animasi popup
+        }
+    });
+
+    // Menutup popup
+    document.getElementById("closePopup").addEventListener("click", function () {
+        document.getElementById("popup").style.display = "none";
+        document.querySelector(".popup-content").classList.remove("active"); // Menghapus efek animasi
+    });
+});
