@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Notaris</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Tampilan Awal -->
+    <div class="container" id="homePage">
+        <h1>Selamat Datang di Aplikasi Notaris</h1>
+        <button onclick="window.location.href='pages/client.html'">CEK STATUS BERKAS ANDA</button>
+        <a href="#" onclick="goToLogin()" class="notaris-link">Masuk sebagai Notaris</a>
+    </div>
+
+    <!-- Halaman Login -->
+    <div class="container" id="loginPage" style="display: none;">
+        <h2>Login Notaris</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="errorMsg" style="color: red;"></p>
+        <p id="capsWarning" style="color: red; display: none;">CAPSLOCK AKTIF</p> <!-- Peringatan Caps Lock -->
+        <a href="index.html" class="back-link">Kembali ke Halaman Utama</a> <!-- Tombol Back ke halaman depan -->
+    </div>
+
+    <script>
+        // Fungsi untuk menampilkan halaman login
+        function goToLogin() {
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("loginPage").style.display = "block";
+            checkCapsLock(); // Cek Caps Lock segera setelah halaman login ditampilkan
+        }
+
+        // Fungsi login
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === "admin" && password === "Notaris@1992") {
+                window.location.href = "pages/notaris.html"; // Redirect ke halaman notaris
+            } else {
+                document.getElementById("errorMsg").innerText = "Username atau password salah!";
+            }
+        }
+
+        // Fungsi untuk mengecek status Caps Lock tanpa perlu mengetik
+        function checkCapsLock() {
+            const capsWarning = document.getElementById("capsWarning");
+            const testEvent = new KeyboardEvent("keydown", { key: "A" });
+            
+            if (testEvent.getModifierState && testEvent.getModifierState("CapsLock")) {
+                capsWarning.style.display = "block"; // Caps Lock Aktif
+            } else {
+                capsWarning.style.display = "none"; // Caps Lock Mati
+            }
+        }
+
+        // Fungsi untuk memantau perubahan Caps Lock saat user menekan tombol keyboard
+        function monitorCapsLock(event) {
+            const capsWarning = document.getElementById("capsWarning");
+            const isCapsOn = event.getModifierState && event.getModifierState("CapsLock");
+
+            if (isCapsOn) {
+                capsWarning.style.display = "block";
+            } else {
+                capsWarning.style.display = "none";
+            }
+        }
+
+        // Pastikan Caps Lock langsung terdeteksi bahkan sebelum user mengetik
+        window.addEventListener("focus", checkCapsLock);
+        document.addEventListener("keydown", monitorCapsLock);
+        document.addEventListener("keyup", monitorCapsLock);
+    </script>
+</body>
+</html>
