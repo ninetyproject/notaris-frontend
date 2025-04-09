@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cek Status Berkas</title>
-    <link rel="stylesheet" href="../style.css"> <!-- Path ke CSS diperbarui -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Status Berkas</title>
+  <link rel="stylesheet" href="../style.css"> <!-- Naik satu folder ke style.css -->
 </head>
 <body>
-    <div class="container">
-        <h2>Cek Status Berkas Anda</h2>
-        <input type="text" id="nikInput" placeholder="Masukkan NIK Pemohon" oninput="this.value = this.value.replace(/\D/g, '')" maxlength="16">
-        <button onclick="cariBerkas()">Cari</button>
-        <div id="hasilPencarian"></div>
-        <a href="../index.html" class="back-link">Kembali ke Halaman Utama</a>
-    </div>
+  <div class="container">
+    <h2>Cek Status Pelayanan Anda</h2>
+    <input type="text" id="nikInput" placeholder="Masukkan NIK Pemohon" oninput="this.value = this.value.replace(/\D/g, '')" maxlength="16">
+    <button onclick="cariBerkas()">Cari</button>
+    <div id="hasilPencarian"></div>
+    <a href="../index.html" class="back-link">Kembali ke Halaman Utama</a>
+  </div>
 
-    <script src="../script.js"></script> <!-- Path ke JS diperbarui -->
+  <script src="../script.js"></script>
 </body>
 </html>

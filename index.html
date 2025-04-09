@@ -10,7 +10,7 @@
     <!-- Tampilan Awal -->
     <div class="container" id="homePage">
         <h1>Selamat Datang di Aplikasi Notaris</h1>
-        <button onclick="window.location.href='pages/client.html'">CEK STATUS BERKAS ANDA</button>
+        <button onclick="window.location.href='pages/client.html'">CEK STATUS PELAYANAN ANDA</button>
         <a href="#" onclick="goToLogin()" class="notaris-link">Masuk sebagai Notaris</a>
     </div>
 
@@ -20,59 +20,80 @@
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button onclick="login()">Login</button>
-        <p id="errorMsg" style="color: red;"></p>
-        <p id="capsWarning" style="color: red; display: none;">CAPSLOCK AKTIF</p> <!-- Peringatan Caps Lock -->
-        <a href="index.html" class="back-link">Kembali ke Halaman Utama</a> <!-- Tombol Back ke halaman depan -->
+        <p id="capsWarning" style="color: red; display: none;">CAPSLOCK AKTIF</p>
+        <a href="index.html" class="back-link">Kembali ke Halaman Utama</a>
+    </div>
+
+    <!-- Popup Error Login -->
+    <div id="login-error-overlay" class="hide"></div>
+    <div id="login-error-popup" class="hide">
+        <div class="popup-content">
+            <p>❌ Username atau password salah!</p>
+            <button onclick="hideLoginError()">Tutup</button>
+        </div>
     </div>
 
     <script>
-        // Fungsi untuk menampilkan halaman login
+        // Tampilkan halaman login
         function goToLogin() {
             document.getElementById("homePage").style.display = "none";
             document.getElementById("loginPage").style.display = "block";
-            checkCapsLock(); // Cek Caps Lock segera setelah halaman login ditampilkan
         }
 
         // Fungsi login
         function login() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            
+
             if (username === "admin" && password === "Notaris@1992") {
-                window.location.href = "pages/notaris.html"; // Redirect ke halaman notaris
+                window.location.href = "pages/notaris.html";
             } else {
-                document.getElementById("errorMsg").innerText = "Username atau password salah!";
+                showLoginError();
             }
         }
 
-        // Fungsi untuk mengecek status Caps Lock tanpa perlu mengetik
-        function checkCapsLock() {
-            const capsWarning = document.getElementById("capsWarning");
-            const testEvent = new KeyboardEvent("keydown", { key: "A" });
-            
-            if (testEvent.getModifierState && testEvent.getModifierState("CapsLock")) {
-                capsWarning.style.display = "block"; // Caps Lock Aktif
-            } else {
-                capsWarning.style.display = "none"; // Caps Lock Mati
-            }
+        // Tampilkan popup error
+        function showLoginError() {
+            const overlay = document.getElementById("login-error-overlay");
+            const popup = document.getElementById("login-error-popup");
+
+            overlay.classList.remove("hide");
+            overlay.classList.add("show");
+
+            popup.classList.remove("hide");
+            popup.classList.add("show");
         }
 
-        // Fungsi untuk memantau perubahan Caps Lock saat user menekan tombol keyboard
-        function monitorCapsLock(event) {
-            const capsWarning = document.getElementById("capsWarning");
-            const isCapsOn = event.getModifierState && event.getModifierState("CapsLock");
+        // Sembunyikan popup error
+        function hideLoginError() {
+            const overlay = document.getElementById("login-error-overlay");
+            const popup = document.getElementById("login-error-popup");
 
-            if (isCapsOn) {
+            overlay.classList.remove("show");
+            overlay.classList.add("hide");
+
+            popup.classList.remove("show");
+            popup.classList.add("hide");
+        }
+
+        // Cek CAPSLOCK
+        document.addEventListener("keydown", function (event) {
+            const capsWarning = document.getElementById("capsWarning");
+            if (event.getModifierState && event.getModifierState("CapsLock")) {
                 capsWarning.style.display = "block";
             } else {
                 capsWarning.style.display = "none";
             }
-        }
+        });
 
-        // Pastikan Caps Lock langsung terdeteksi bahkan sebelum user mengetik
-        window.addEventListener("focus", checkCapsLock);
-        document.addEventListener("keydown", monitorCapsLock);
-        document.addEventListener("keyup", monitorCapsLock);
+        document.addEventListener("keyup", function (event) {
+            const capsWarning = document.getElementById("capsWarning");
+            if (event.getModifierState && event.getModifierState("CapsLock")) {
+                capsWarning.style.display = "block";
+            } else {
+                capsWarning.style.display = "none";
+            }
+        });
     </script>
 </body>
 </html>

@@ -7,14 +7,46 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<div class="dashboard-container">
+    <h2>Dashboard Notaris</h2>
+    <p>Selamat datang di Dashboard Notaris.</p>
+    <button onclick="showFormPopup()">Tambah Berkas</button>
+  
+    <div id="daftarBerkas"></div>
+  </div>
+  
+  <div id="form-overlay" class="overlay hide"></div>
+<div id="form-popup" class="popup-form hide">
 
-    <div class="container">
-        <h2>Dashboard Notaris</h2>
-        <p>Selamat datang di Dashboard Notaris.</p>
-        <button>Kelola Berkas</button>
-        <button>Tambah Berkas</button>
-    </div>
+  <form id="berkasForm" onsubmit="submitBerkas(event)">
+    <h3>Tambah Berkas Baru</h3>
 
+    <label>NIK Pemohon:</label>
+    <input type="text" id="nik" maxlength="16" required pattern="\d{16}" title="Masukkan 16 digit angka NIK" />
+
+    <label>Nama Pemohon:</label>
+    <input type="text" id="nama" required />
+
+    <label>Tanggal Permohonan:</label>
+    <input type="date" id="tanggal" required
+           onkeydown="return false"  <!-- Blokir input manual -->
+           onpaste="return false"    <!-- Blokir paste manual -->
+    />
+
+    <label>Penjelasan Tambahan:</label>
+    <textarea id="tambahan" maxlength="150" placeholder="Maks 150 karakter"
+              style="resize: none;"></textarea>
+
+    <button type="submit">Tambah</button>
+    <button type="button" onclick="closeForm()">Batal</button>
+  </form>
+</div>
+
+
+
+    <!-- 🔳 Menu popup untuk tombol "..." -->
+    <div id="option-popup" class="option-popup hide"></div>
+
+    <script src="../script.js"></script>
 </body>
 </html>
-<!-- Compare this snippet from pages/notaris.html: -->
